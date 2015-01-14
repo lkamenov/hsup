@@ -38,12 +38,17 @@ type Executor struct {
 	status      chan *ExitStatus
 	complete    chan struct{}
 
-	// simple dyno driver properties
+	// simple, abspath, and libcontainer dyno driver properties
 	cmd     *exec.Cmd
 	waiting chan struct{}
 
 	// docker dyno driver properties
 	container *docker.Container
+
+	// libcontainer dyno driver properties
+	lcStatus    chan *ExitStatus
+	waitStartup chan struct{}
+	waitWait    chan struct{}
 
 	// FSM Fields
 	OneShot  bool
